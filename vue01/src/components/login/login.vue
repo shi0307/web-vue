@@ -39,7 +39,7 @@ export default {
         submit(refForm) {
             this.$refs[refForm].validate( (vali) => {
                 if (vali) {
-
+                    this.$router.push('/customer');
                 } else {
                     return false;
                 }

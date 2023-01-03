@@ -7,7 +7,9 @@ const router = new Router({
     routes: [
         { path: "/", redirect: "/login" },
         
-        { path: "/login", component: () => import("@/components/login/login.vue")}
+        { path: "/login", component: () => import("@/components/login/login.vue")},
+
+        { path: "/customer", component: () => import("@/components/customer/customer.vue")}
     ]
 })
 
