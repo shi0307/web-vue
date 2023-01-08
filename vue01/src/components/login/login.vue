@@ -39,7 +39,13 @@ export default {
         submit(refForm) {
             this.$refs[refForm].validate( (vali) => {
                 if (vali) {
-                    this.$router.push('/customer');
+                    console.log(this.form);
+                    if (this.form.username.trim() == 'customer') {
+                        this.$router.push('/customer');
+                    } else if (this.form.username.trim() == 'subs') {
+                        this.$router.push('/subscriber');
+                    }
+                    
                 } else {
                     return false;
                 }

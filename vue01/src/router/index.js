@@ -9,7 +9,9 @@ const router = new Router({
         
         { path: "/login", component: () => import("@/components/login/login.vue")},
 
-        { path: "/customer", component: () => import("@/components/customer/customer.vue")}
+        { path: "/customer", component: () => import("@/components/customer/customer.vue")},
+        
+        { path: '/subscriber', component: () => import("@/components/subscriber/subscriber.vue")}
     ]
 })
 
