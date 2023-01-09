@@ -13,6 +13,9 @@
         <br>
         <br>
         <el-button type="primary" @click="commonServiceGet">封装Get请求</el-button>
+        <br>
+        <br>
+        <el-button type="primary" @click="commonServicePost">封装Post请求</el-button>
     </div>
   </div>
 </template>
@@ -20,7 +23,7 @@
 <script>
 import axios from 'axios'
 import querystring from 'querystring'
-import {getMethod, postMethod} from '@/axios/api/index.js'
+import { getMethod, postMethod} from '@/axios/api/index.js'
 
 export default {
     name: 'scriber',
@@ -48,11 +51,13 @@ export default {
             })
             console.log(res);
         },
-        commonServiceGet() {
-            console.log(getMethod);
-            getMethod({age: 18}).then( res => {
-                console.log(res);
-            })
+        async commonServiceGet() {
+            const {data: res} = await getMethod({age: 18});
+            console.log(res);
+        },
+        async commonServicePost() {
+            const {data: res} = await postMethod({name: 'xiaoming'});
+            console.log(res);
         }
     
     }

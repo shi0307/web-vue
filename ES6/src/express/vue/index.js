@@ -35,7 +35,7 @@ app.get('/get', (req, res) => {
 });
 
 app.post('/post', (req, res) => {
-    console.log(req.body);
+    
     if (req.body) {
         res.send(req.body);
     } else {

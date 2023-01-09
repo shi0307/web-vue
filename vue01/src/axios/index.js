@@ -12,7 +12,6 @@ const service = axios.create({
 
 // 请求拦截器 设置公共请求内容
 service.interceptors.request.use( config => {
-        console.log(config.data);
         if (config.data) {
             config.data = querystring.stringify(config.data);
         }

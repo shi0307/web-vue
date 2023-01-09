@@ -1,6 +1,6 @@
-import service from "../index";
+import service from "@/axios/index";
 
-function getMethod(data) {
+const getMethod = function getMethod(data) {
     return service({
         url: '/get',
         method: 'get',
@@ -16,7 +16,4 @@ function postMethod(data) {
     })
 }
 
-export default {
-    getMethod,
-    postMethod
-}
+export { getMethod, postMethod}
