@@ -10,6 +10,7 @@ const app = new expres();
 // 设置post请求解析
 app.use(bodyParser.urlencoded({extended: false}))
 
+/* 这里设置的是服务端允许的跨域配置*/
 app.all('*',function(req, res, next){
     // 设置允许跨域的域名，* 代表允许任意域名跨域
     res.header('Access-Control-Allow-Origin', '*');

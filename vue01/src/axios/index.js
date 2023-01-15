@@ -5,7 +5,7 @@ import querystring from 'querystring';
 创建实例的方式
 */
 const service = axios.create({
-    baseURL: 'http://192.168.1.5:8081', // 等同于 axios.default.baseURL
+    baseURL: 'http://192.168.1.5:8080', // 等同于 axios.default.baseURL
     timeout: 3000,
 
 });
