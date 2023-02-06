@@ -2,7 +2,6 @@
     vue核心原理
 */
 
-(function() {
     class Vue {
         constructor(options) {
             this.data = options.data;
@@ -77,7 +76,10 @@
         vm.$el = document.querySelector(el);
         // 文档碎片的形式，进行模板编译后的替换
         const childNode = document.createDocumentFragment();
-        if (firstChildNode = vm.$el.firstChildNode) {
+        //if (firstChildNode = vm.$el.firstChild) {
+           // childNode.appendChild(firstChildNode);
+        //}
+        while (firstChildNode = vm.$el.firstChild) {
             childNode.appendChild(firstChildNode);
         }
         replace(childNode);
@@ -92,10 +94,12 @@
                 const execResult = reglx.exec(text);
                 if (execResult) {
                     // 这里获取vm.data中，初始化设置的值
-                    const value = execResult(1).split('.').reduce((newObj, key) => {newObj[key]}, vm.data);
+                    const value = execResult[1].split('.').reduce((newObj, key) => {
+                        return newObj[key]
+                    }, vm.data);
                     // 将data中的值，替换到差值表达式中
                     node.textContent = text.replace(reglx, value);
-                    new Watch(vm, execResult(1), newVal => {
+                    new Watch(vm, execResult[1], newVal => {
                         node.textContent = text.replace(reglx, newVal);
                     });
                 }
@@ -106,4 +110,3 @@
             })
         }
     }
-})()
