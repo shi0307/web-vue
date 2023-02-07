@@ -16,7 +16,7 @@
             this.subList = [];
         }
         addSubList(watch) {
-            this.subList.add(watch);
+            this.subList.push(watch);
         }
         notify() {
             this.subList.forEach(watch => {
@@ -34,11 +34,11 @@
             // 这里循环获取vm中key的值，会触发数据劫持中的get方法，在get方法中，添加到Dep发布器中
             key.split('.').reduce((newObj, key) => {
                 return newObj[key];
-            }, vm);
+            }, vm.data);
             Dep.target = null;
         }
         update() {
-            const value = this.key.split('.').reduce((newObj, keys) => {newObj[keys]}, this.vm);
+            const value = this.key.split('.').reduce((newObj, keys) => newObj[keys], this.vm.data);
             this.cb(value);
         }
     }
@@ -61,9 +61,11 @@
                     if (Dep.target) {
                         dep.addSubList(Dep.target);
                     }
+                    
                     return value;
                 },
                 set(newVal) {
+                    console.log('set了属性');
                     value = newVal;
                     Observe(value);
                     dep.notify();
@@ -104,6 +106,29 @@
                     });
                 }
                 return;
+            }
+
+            if (node.nodeType == 1) {
+                const attributeList = Array.from(node.attributes);
+                const modelAttr = attributeList.find((key) => {
+                    return key.nodeName === 'v-model';
+                });
+                if (modelAttr) {
+                    const newVal = modelAttr.value.split('.').reduce((newObj, key) => {
+                        return newObj[key];
+                    }, vm.data);
+                    node.value = newVal;
+                    new Watch(vm, modelAttr.value, newVal => {
+                        node.value = newVal;
+                    });
+                    node.addEventListener('input', e => {
+                        const newValue = e.target.value;
+                        modelAttr.value.split('.').reduce((newObj, key) => {
+                            // 将最新的newValue赋值给vm的data上
+                            newObj[key] = newValue;
+                        }, vm.data);
+                    })
+                }
             }
             node.childNodes.forEach((child) => {
                 replace(child);

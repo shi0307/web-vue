@@ -5,13 +5,18 @@
     <body>
         <div id="app">
             <span>{{name}}</span>
+            <br>
+            <span>{{message}}</span>
+            <br>
+            <input type="text" v-model="message">
         </div>
 
         <script type="text/javascript">
             new Vue({
                 el: '#app',
                 data: {
-                    name: 'hello'
+                    name: 'hello',
+                    message: 'hello world'
                 }
             });
         </script>
